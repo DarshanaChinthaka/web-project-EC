@@ -84,6 +84,12 @@
 *::after {
   box-sizing: border-box;
 }
+.navbar.navbar-expand-lg.navbar-light.bg-light .container.px-4.px-lg-5 .navbar-brand {
+    color: #A706B5;
+    font-weight: 800;
+    font-size: x-large;
+}
+
 
 @media (prefers-reduced-motion: no-preference) {
   :root {
