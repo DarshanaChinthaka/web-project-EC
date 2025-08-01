@@ -84,10 +84,10 @@
 *::after {
   box-sizing: border-box;
 }
-.navbar.navbar-expand-lg.navbar-light.bg-light .container.px-4.px-lg-5.logoName .navbar-brand {
-    color: #82009D;
-    font-weight: 700;
-    font-family: Constantia, "Lucida Bright", "DejaVu Serif", Georgia, serif;
+.navbar.navbar-expand-lg.navbar-light.bg-light .container.px-4.px-lg-5 .navbar-brand {
+    color: #A706B5;
+    font-weight: 800;
+    font-size: x-large;
 }
 
 
@@ -10829,5 +10829,4 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
-}.logoName {
 }
