@@ -1,5 +1,5 @@
 <p align="center">
- # <img src="img/logo.png" alt="ShopNest Logo" width="120" />ShopNest - Elegant & Modern E-commerce Website
+  <img src="images/logo.png" alt="ShopNest Logo" width="120" />
 </p>
 # 🛒 ShopNest - Elegant & Modern E-commerce Website
 
