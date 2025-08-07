@@ -10868,4 +10868,8 @@ textarea.form-control-lg {
   object-fit: cover;
 }
 
-
+/*text outline */
+.textOutline {
+	color: white;
+  text-shadow: 0px 1px 5px #000000;
+}
