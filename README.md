@@ -55,5 +55,6 @@ This is a university group project developed collaboratively by the following te
 
 For any questions, ideas, or collaboration requests, please contact:
 
-📧 **wvpdarshanachinthaka@gmail.com**
+📧 **Email:** [wvpdarshanachinthaka@gmail.com](mailto:wvpdarshanachinthaka@gmail.com?subject=ShopNest%20Project&body=Hello%20Darshana,)
+
 
