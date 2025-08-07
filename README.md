@@ -6,9 +6,23 @@ Welcome to **ShopNest**, a stylish and user-friendly online store designed to di
 
 ---
 
+## 👥 Group Project
+
+This is a university group project developed collaboratively by the following team members:
+
+- [Shanilka Lakshanan](https://github.com/shanilka1)
+- [Kawya Dissanayaka](https://github.com/KawyaDissanayaka)
+- [Nimasha Gayathri](https://github.com/nimashagayathri)
+- [Himashi Lenora](https://github.com/HimashiLenora)
+- [Minidu](https://github.com/minidu1)
+- [Thashiya](https://github.com/thashiya12)
+- [Darshana Chinthaka](https://github.com/DarshanaChinthaka)
+
+---
+
 ## ✨ Features
 
-- 🎞️ **Image Slider** – Highlights premium collections on homepage.
+- 🎞️ **Image Slider** – Highlights premium collections on the homepage.
 - 🛍️ **Product Categories** – Including:
   - Watches
   - Cameras
@@ -24,31 +38,18 @@ Welcome to **ShopNest**, a stylish and user-friendly online store designed to di
 
 ## 💻 Technologies Used
 
-- **HTML** – Page structure
-- **CSS** – Styling and design
-- **Bootstrap** – Responsive layout
-- **JavaScript** – (If included) for slider & interactivity
+- **HTML5** – Page structure
+- **CSS3** – Styling and design
+- **Bootstrap 5** – Responsive layout
+- **JavaScript** *(if applicable)* – For interactivity
 - **GitHub Pages** – For free website hosting
 
----
-
-
----
-
-## 🙌 Acknowledgements
-
-Inspired by modern UI design trends and built as part of a front-end development project.
 
 ---
 
 ## 📬 Contact
 
-If you'd like to collaborate or provide feedback:
+For any questions, ideas, or collaboration requests, please contact:
 
-📧 darshanachinthaka@gmail.com  
-🌐 [GitHub Profile](https://github.com/DarshanaChinthaka)
-
----
-
-
+📧 **wvpdarshanachinthaka@gmail.com**
 
