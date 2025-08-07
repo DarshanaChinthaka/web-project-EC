@@ -1,3 +1,6 @@
+<p align="center">
+ # <img src="img/logo.png" alt="ShopNest Logo" width="120" />ShopNest - Elegant & Modern E-commerce Website
+</p>
 # 🛒 ShopNest - Elegant & Modern E-commerce Website
 
 Welcome to **ShopNest**, a stylish and user-friendly online store designed to display a wide variety of lifestyle and tech products. This project showcases modern product layouts, category-based browsing, and attractive UI elements.
@@ -10,13 +13,13 @@ Welcome to **ShopNest**, a stylish and user-friendly online store designed to di
 
 This is a university group project developed collaboratively by the following team members:
 
-- [Shanilka Lakshanan](https://github.com/shanilka1)
-- [Kawya Dissanayaka](https://github.com/KawyaDissanayaka)
-- [Nimasha Gayathri](https://github.com/nimashagayathri)
-- [Himashi Lenora](https://github.com/HimashiLenora)
+- [Shanilka](https://github.com/shanilka1)
+- [Kawya](https://github.com/KawyaDissanayaka)
+- [Nimasha](https://github.com/nimashagayathri)
+- [Himashi](https://github.com/HimashiLenora)
 - [Minidu](https://github.com/minidu1)
 - [Thashiya](https://github.com/thashiya12)
-- [Darshana Chinthaka](https://github.com/DarshanaChinthaka)
+- [Darshana](https://github.com/DarshanaChinthaka)
 
 ---
 
