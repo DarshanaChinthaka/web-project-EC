@@ -1,6 +1,7 @@
 <p align="center">
   <img src="images/logo.png" alt="ShopNest Logo" width="120" />
 </p>
+
 # 🛒 ShopNest - Elegant & Modern E-commerce Website
 
 Welcome to **ShopNest**, a stylish and user-friendly online store designed to display a wide variety of lifestyle and tech products. This project showcases modern product layouts, category-based browsing, and attractive UI elements.
