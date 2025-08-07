@@ -33,7 +33,7 @@ This is a university group project developed collaboratively by the following te
   - Jewelry
   - Sunglasses
   - Gaming
-  - Smart Gadgets & more..
+  - Smart Gadgets & more
 - 🔎 **Search and Navigation** – Easy-to-browse layout with featured sections.
 - ⭐ **Recommended Products** – Handpicked deals for users.
 - 🧾 **About & Contact Sections** – Share brand story and support.
