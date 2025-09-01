@@ -175,6 +175,50 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".cart-count").forEach(el => el.textContent = count);
 });
 </script>
+	
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // 1️⃣ Load cart and show summary
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let summary = document.querySelector("#order-summary");
+  let total = 0;
+
+  if(cart.length === 0){
+    summary.innerHTML = "<p>Your cart is empty!</p>";
+  } else {
+    summary.innerHTML = "";
+    cart.forEach(item => {
+      summary.innerHTML += `
+        <div class="d-flex justify-content-between mb-2">
+          <span>${item.name} x${item.qty}</span>
+          <span>$${(item.price * item.qty).toFixed(2)}</span>
+        </div>
+      `;
+      total += item.price * item.qty;
+    });
+  }
+
+  document.querySelector("#checkout-total").textContent = $${total.toFixed(2)};
+
+  // Update navbar cart badge
+  let count = cart.reduce((acc, item) => acc + item.qty, 0);
+  document.querySelectorAll(".cart-count").forEach(el => el.textContent = count);
+
+  // 2️⃣ Confirm Order button
+  document.getElementById("checkout-form").addEventListener("submit", function(e) {
+    e.preventDefault();
+    // Clear cart
+    localStorage.removeItem("cart");
+    // Update badge
+    document.querySelectorAll(".cart-count").forEach(el => el.textContent = 0);
+    // Show message
+    alert("✅ Order Confirmed!\nThank you for shopping at ShopNest.");
+    // Redirect to homepage
+    window.location.href = "index.html";
+  });
+});
+</script>
+
 
 </body>
 </html>
