@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your Cart - ShopNest</title>
+  <!-- Bootstrap -->
+  <link href="../css/bootstrap-4.3.1.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="../items/assets/styles.css" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="../images/logo.ico" />
+  <style>
+    .checkout-card {
+      border-radius: 10px;
+      border: none;
+      background: #f8f9fa;
+    }
+    .checkout-btn {
+      background: linear-gradient(90deg, #28a745, #218838);
+      border: none;
+      font-weight: 600;
+      color: #fff;
+      transition: 0.3s;
+    }
+    .checkout-btn:hover {
+      background: linear-gradient(90deg, #218838, #1e7e34);
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container px-4 px-lg-5">
+      <a class="navbar-brand font-weight-bold" href="../index.html">
+        <img src="../images/logo.png" width="40" height="40" alt="Logo" class="d-inline-block mr-2 img-fluid"> ShopNest
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto align-items-center">
+          <li class="nav-item mx-2"><a class="nav-link" href="../index.html">Home</a></li>
+          <li class="nav-item mx-2"><a class="nav-link" href="../shop.html">Shop</a></li>
+          <li class="nav-item mx-2"><a class="nav-link" href="../contact.html">Contact</a></li>
+          <li class="nav-item mx-2"><a class="nav-link" href="../signin.html">Sign In</a></li>
+          <li class="nav-item mx-2"><a class="nav-link" href="../signup.html">Sign Up</a></li>
+          <li class="nav-item">
+            <a href="../cart.html" class="btn btn-outline-dark ml-3">
+              <i class="bi-cart-fill me-1"></i>
+              Cart
+              <span class="badge bg-dark text-white ms-1 rounded-pill cart-count">0</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Cart Section -->
+  <div class="container my-5">
+    <h2 class="text-center mb-4">🛒 Your Shopping Cart</h2>
+    <div class="table-responsive">
+      <table class="table align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>Image</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody id="cart-body"></tbody>
+      </table>
+    </div>
+
+    <!-- Checkout Section -->
+    <div class="d-flex justify-content-end mt-4">
+      <div class="card checkout-card shadow-lg p-4" style="min-width: 300px;">
+        <h5 class="mb-3"><i class="bi bi-credit-card2-front"></i> Cart Summary</h5>
+        <div class="d-flex justify-content-between mb-2">
+          <span>Subtotal:</span> <span id="cart-total">$0.00</span>
+        </div>
+        <div class="d-flex justify-content-between mb-3">
+          <span>Shipping:</span> <span>$5.00</span>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-between mb-3 font-weight-bold">
+          <span>Total:</span> <span id="final-total">$0.00</span>
+        </div>
+        <button class="btn checkout-btn w-100">
+          <i class="bi bi-lock-fill"></i> Proceed to Checkout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+ <footer class="py-5 bg-dark">
+  <div class="container">
+    <p class="m-0 text-center text-white">© 2025 ShopNest. All rights reserved.
+      This website and its content are the property of ShopNest. You may not copy, reuse, or distribute any part of this site without permission.</p>
+  </div>
+</footer>
+
+  <!-- Scripts -->
+  <script src="../js/jquery-3.3.1.min.js"></script>
+  <script src="../js/popper.min.js"></script>
+  <script src="../js/bootstrap-4.3.1.js"></script>
+
+  <!-- Cart Logic -->
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let tbody = document.querySelector("#cart-body");
+    let total = 0;
+
+    tbody.innerHTML = "";
+    if (cart.length === 0) {
+      tbody.innerHTML = <tr><td colspan="5" class="text-center">Your cart is empty!</td></tr>;
+    }
+
+    cart.forEach((item, index) => {
+      let row = `
+        <tr>
+          <td><img src="${item.img}" width="70"></td>
+          <td>${item.name}</td>
+          <td>
+            <input type="number" value="${item.qty}" min="1" 
+              class="form-control text-center qty-input" data-index="${index}" style="width:80px;">
+          </td>
+          <td>$${(item.price * item.qty).toFixed(2)}</td>
+          <td><button class="btn btn-sm btn-danger remove-item" data-index="${index}">
+            <i class="bi bi-trash"></i>
+          </button></td>
+        </tr>
+      `;
+      tbody.innerHTML += row;
+      total += item.price * item.qty;
+    });
+
+    // Subtotal & Total update
+    document.querySelector("#cart-total").textContent = $${total.toFixed(2)};
+    document.querySelector("#final-total").textContent = $${(total + (cart.length > 0 ? 5 : 0)).toFixed(2)};
+
+    // Qty change
+    document.querySelectorAll(".qty-input").forEach(input => {
+      input.addEventListener("change", (e) => {
+        let index = e.target.dataset.index;
+        cart[index].qty = parseInt(e.target.value);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        location.reload();
+      });
+    });
+
+    // Remove item
+    document.querySelectorAll(".remove-item").forEach(button => {
+      button.addEventListener("click", (e) => {
+        let index = e.target.dataset.index;
+        cart.splice(index, 1);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        location.reload();
+      });
+    });
+
+    // Navbar badge
+    let count = cart.reduce((acc, item) => acc + item.qty, 0);
+    document.querySelectorAll(".cart-count").forEach(el => {
+      el.textContent = count;
+    });
+  });
+  </script>
+</body>
+</html>
