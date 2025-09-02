@@ -1,10 +1,153 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<title>Untitled Document</title>
-</head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopNest - Manage Products</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+    body { background: #f7f9fc; color: #333; }
 
+    .container { display: flex; min-height: 100vh; }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background: #1e293b;
+      color: #fff;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+    .sidebar h2 { font-size: 18px; margin-bottom: 20px; }
+    .sidebar a {
+      text-decoration: none;
+      color: #cbd5e1;
+      padding: 10px;
+      border-radius: 6px;
+      display: block;
+      margin-bottom: 5px;
+      transition: 0.2s;
+    }
+    .sidebar a:hover, .sidebar a.active {
+      background: #334155;
+      color: #fff;
+    }
+
+    /* Main */
+    .main { flex: 1; padding: 20px; }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .topbar h1 { font-size: 22px; }
+    .topbar button {
+      padding: 8px 14px;
+      background: #22c55e;
+      border: none;
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .topbar button:hover { background: #16a34a; }
+
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+    table thead {
+      background: #1e293b;
+      color: #fff;
+    }
+    table th, table td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+    table tr:hover { background: #f1f5f9; }
+    .actions button {
+      padding: 6px 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-right: 5px;
+      font-size: 13px;
+    }
+    .btn-edit { background: #3b82f6; color: #fff; }
+    .btn-edit:hover { background: #2563eb; }
+    .btn-delete { background: #ef4444; color: #fff; }
+    .btn-delete:hover { background: #dc2626; }
+  </style>
+</head>
 <body>
+
+<div class="container">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>ShopNest</h2>
+    <a href="index.html">Dashboard</a>
+    <a href="product.html" class="active">Products</a>
+    <a href="orders.html">Orders</a>
+    <a href="customers.html">Customers</a>
+    <a href="inventory.html">Inventory</a>
+    <a href="settings.html">Settings</a>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+    <div class="topbar">
+      <h1>Manage Products</h1>
+      <button>Add Product</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Product</th>
+          <th>Category</th>
+          <th>Price</th>
+          <th>Stock</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="productTable">
+        <!-- Data loads here from DB -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  fetch("getProducts.php")
+    .then(res => res.json())
+    .then(data => {
+      let table = document.getElementById("productTable");
+      table.innerHTML = "";
+      data.forEach(p => {
+        table.innerHTML += `
+          <tr>
+            <td>#${p.id}</td>
+            <td>${p.name}</td>
+            <td>${p.category}</td>
+            <td>$${p.price}</td>
+            <td>${p.stock}</td>
+            <td class="actions">
+              <button class="btn-edit">Edit</button>
+              <button class="btn-delete">Delete</button>
+            </td>
+          </tr>`;
+      });
+    })
+    .catch(err => console.error("Error loading products:", err));
+</script>
+
 </body>
 </html>
