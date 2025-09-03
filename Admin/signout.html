@@ -1,10 +1,168 @@
+<!-- save as signout.html -->
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<title>Untitled Document</title>
-</head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sign Out</title>
+  <style>
+    /* page background */
+    :root{
+      --bg:#f4f7fb;
+      --card:#ffffff;
+      --accent:#ff6b6b;
+      --muted:#6b7280;
+      --shadow: 0 8px 24px rgba(19,24,33,0.08);
+    }
+    html,body{
+      height:100%;
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg, #eef3fb 0%, var(--bg) 100%);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
 
+    /* center box */
+    .wrap {
+      min-height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+    }
+
+    .card {
+      width:360px;
+      max-width:92%;
+      background:var(--card);
+      border-radius:12px;
+      box-shadow:var(--shadow);
+      padding:22px;
+      text-align:center;
+    }
+
+    .icon {
+      width:64px;
+      height:64px;
+      margin: 4px auto 14px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(135deg, rgba(255,107,107,0.12), rgba(255,107,107,0.06));
+      color:var(--accent);
+      font-size:28px;
+    }
+
+    h1{
+      font-size:18px;
+      margin:6px 0 6px;
+      color:#0f1724;
+    }
+    p{
+      margin:0 0 18px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.4;
+    }
+
+    .actions {
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      margin-top:6px;
+    }
+
+    button, .btn {
+      border:0;
+      border-radius:8px;
+      padding:10px 14px;
+      cursor:pointer;
+      font-weight:600;
+      font-size:14px;
+    }
+    .btn-cancel {
+      background:transparent;
+      color:#111827;
+      box-shadow: inset 0 0 0 1px rgba(17,24,39,0.06);
+    }
+    .btn-signout {
+      background:var(--accent);
+      color:white;
+    }
+
+    /* small note */
+    .small {
+      margin-top:12px;
+      font-size:12px;
+      color:#9aa0ab;
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{transition:none!important}
+    }
+  </style>
+</head>
 <body>
+  <div class="wrap" role="dialog" aria-labelledby="signout-title" aria-describedby="signout-desc">
+    <div class="card" role="document">
+      <div class="icon" aria-hidden="true">⎋</div>
+      <h1 id="signout-title">Sign out of ShopNest?</h1>
+      <p id="signout-desc">You will be returned to the login page. Any unsaved changes may be lost.</p>
+
+      <!-- Option A: server-side logout (uncomment & set action to your logout endpoint) -->
+      <!--
+      <form method="POST" action="/logout">
+        <div class="actions">
+          <button type="button" class="btn btn-cancel" onclick="goBack()">Cancel</button>
+          <button type="submit" class="btn btn-signout">Sign out</button>
+        </div>
+      </form>
+      -->
+
+      <!-- Option B: client-side logout (default). Adjust redirect target if needed. -->
+      <div class="actions" id="client-actions">
+        <button type="button" class="btn btn-cancel" onclick="goBack()">Cancel</button>
+        <button type="button" class="btn btn-signout" id="signoutBtn">Sign out</button>
+      </div>
+
+      <div class="small">If you are the admin, sign back in to continue managing the site.</div>
+    </div>
+  </div>
+
+  <script>
+    // go back to previous page
+    function goBack(){
+      if (document.referrer) {
+        // try to go back to previous page
+        history.back();
+      } else {
+        // fallback: go to dashboard or index
+        window.location.href = 'dashboard.html';
+      }
+    }
+
+    // Client-side sign out logic: clear storage and redirect
+    document.getElementById('signoutBtn').addEventListener('click', function(){
+      try {
+        // clear session/local tokens used by your app
+        sessionStorage.clear();
+        localStorage.removeItem('authToken'); // adjust key names as needed
+        localStorage.removeItem('user'); 
+      } catch (e) {
+        console.warn('clear storage error', e);
+      }
+
+      // if using cookie-based auth, you still need server logout.
+      // For static/demo sites, redirect to login page:
+      window.location.href = 'login.html';
+    });
+
+    // Accessibility: focus the signout button for keyboard users
+    window.addEventListener('load', () => {
+      document.getElementById('signoutBtn').focus();
+    });
+  </script>
 </body>
 </html>
