@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Dashboard - ShopNest</title>
+
+  <!-- Bootstrap 4 CSS (local) -->
+  <link href="../css/bootstrap-4.3.1.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+  <style>
+    body { min-height:100vh; background:#f4f6f9; }
+    .sidebar { min-height:100vh; background:#343a40; color:#fff; }
+    .sidebar a { color: #cfd8dc; }
+    .sidebar .nav-link.active { background: rgba(255,255,255,0.08); color:#fff; }
+    .card-stats { border-radius: .6rem; }
+    .table-responsive { max-height: 420px; overflow:auto; }
+    .brand { font-weight:700; color:#fff; }
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row no-gutters">
+      <!-- Sidebar -->
+      <nav class="col-md-2 sidebar p-3">
+        <div class="mb-4 text-center">
+          <img src="../images/logo.png" alt="logo" width="60" class="img-fluid mb-2">
+          <div class="brand">ShopNest Admin</div>
+        </div>
+
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active d-flex align-items-center" href="#">
+              <i class="bi-speedometer2 mr-2"></i> Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link d-flex align-items-center" href="#">
+              <i class="bi-box-seam mr-2"></i> Products
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link d-flex align-items-center" href="#">
+              <i class="bi-card-list mr-2"></i> Orders
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link d-flex align-items-center" href="#">
+              <i class="bi-people mr-2"></i> Users
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link d-flex align-items-center" href="#">
+              <i class="bi-gear mr-2"></i> Settings
+            </a>
+          </li>
+          <li class="nav-item mt-3">
+            <a class="btn btn-danger btn-block" href="../index.html">Go to Store</a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Main content -->
+      <main class="col-md-10 p-4">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h3 class="m-0">Dashboard</h3>
+          <div>
+            <button class="btn btn-success mr-2" data-toggle="modal" data-target="#addProductModal">
+              <i class="bi-plus-lg"></i> Add Product
+            </button>
+            <button class="btn btn-outline-secondary">Sign out</button>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="row mb-4">
+          <div class="col-sm-6 col-lg-3 mb-3">
+            <div class="card card-stats p-3 shadow-sm">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <small class="text-muted">Total Sales</small>
+                  <h5 class="mb-0">LKR 245,600</h5>
+                </div>
+                <div class="align-self-center">
+                  <i class="bi-currency-dollar" style="font-size:28px;color:#28a745"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-3 mb-3">
+            <div class="card card-stats p-3 shadow-sm">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <small class="text-muted">Orders</small>
+                  <h5 class="mb-0">128</h5>
+                </div>
+                <div class="align-self-center">
+                  <i class="bi-basket" style="font-size:28px;color:#007bff"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-3 mb-3">
+            <div class="card card-stats p-3 shadow-sm">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <small class="text-muted">Products</small>
+                  <h5 class="mb-0">342</h5>
+                </div>
+                <div class="align-self-center">
+                  <i class="bi-boxes" style="font-size:28px;color:#6f42c1"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-3 mb-3">
+            <div class="card card-stats p-3 shadow-sm">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <small class="text-muted">Low Stock</small>
+                  <h5 class="mb-0">7 Items</h5>
+                </div>
+                <div class="align-self-center">
+                  <i class="bi-exclamation-triangle" style="font-size:28px;color:#dc3545"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tables -->
+        <div class="row">
+          <!-- Products table -->
+          <div class="col-lg-7 mb-4">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h5 class="card-title mb-0">Products</h5>
+                  <input id="searchProduct" class="form-control form-control-sm w-50" placeholder="Search product...">
+                </div>
+
+                <div class="table-responsive">
+                  <table class="table table-hover table-sm">
+                    <thead class="thead-light">
+                      <tr>
+                        <th>#</th>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Price (LKR)</th>
+                        <th>Stock</th>
+                        <th>Category</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="productsTable">
+                      <!-- sample rows -->
+                      <tr>
+                        <td>1</td>
+                        <td><img src="../images/sample1.jpg" width="50" alt=""></td>
+                        <td>Classic Watch</td>
+                        <td>4,500</td>
+                        <td>26</td>
+                        <td>Watches</td>
+                        <td>
+                          <button class="btn btn-sm btn-info">Edit</button>
+                          <button class="btn btn-sm btn-danger">Delete</button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td><img src="../images/sample2.jpg" width="50" alt=""></td>
+                        <td>Wireless Headphones</td>
+                        <td>12,900</td>
+                        <td>10</td>
+                        <td>Audio</td>
+                        <td>
+                          <button class="btn btn-sm btn-info">Edit</button>
+                          <button class="btn btn-sm btn-danger">Delete</button>
+                        </td>
+                      </tr>
+                      <!-- more rows can be generated by server -->
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Orders table -->
+          <div class="col-lg-5 mb-4">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Recent Orders</h5>
+                <div class="table-responsive">
+                  <table class="table table-sm">
+                    <thead class="thead-light">
+                      <tr>
+                        <th>Order #</th>
+                        <th>User</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>#1001</td>
+                        <td>Kavya D.</td>
+                        <td>LKR 6,500</td>
+                        <td><span class="badge badge-warning">Pending</span></td>
+                      </tr>
+                      <tr>
+                        <td>#1000</td>
+                        <td>Amal S.</td>
+                        <td>LKR 2,400</td>
+                        <td><span class="badge badge-success">Shipped</span></td>
+                      </tr>
+                      <tr>
+                        <td>#999</td>
+                        <td>Sara P.</td>
+                        <td>LKR 8,200</td>
+                        <td><span class="badge badge-danger">Cancelled</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="mt-3 text-right">
+                  <a href="#" class="btn btn-sm btn-outline-primary">View all orders</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-4 text-muted small">
+          © 2025 ShopNest. Admin Panel.
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <!-- Add Product Modal -->
+  <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <form id="addProductForm" method="POST" action="add_product.php" enctype="multipart/form-data" class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addProductLabel">Add New Product</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- form fields with names for PHP -->
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="prodName">Product Name</label>
+              <input name="name" type="text" class="form-control" id="prodName" required>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="prodCategory">Category</label>
+              <select name="category_id" id="prodCategory" class="form-control" required>
+                <option value="">-- Select Category --</option>
+                <option value="1">Watches</option>
+                <option value="2">Audio</option>
+                <option value="3">Accessories</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="prodPrice">Price (LKR)</label>
+              <input name="price" type="number" step="0.01" class="form-control" id="prodPrice" required>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="prodStock">Stock Quantity</label>
+              <input name="stock_quantity" type="number" class="form-control" id="prodStock" required>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="prodImage">Image</label>
+              <input name="image" type="file" class="form-control-file" id="prodImage">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="prodDesc">Description</label>
+            <textarea name="description" id="prodDesc" rows="3" class="form-control"></textarea>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save Product</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="../js/jquery-3.3.1.min.js"></script>
+  <script src="../js/popper.min.js"></script>
+  <script src="../js/bootstrap-4.3.1.js"></script>
+
+  <script>
+    // simple search on products table
+    document.getElementById('searchProduct').addEventListener('input', function() {
+      const q = this.value.toLowerCase();
+      const rows = document.querySelectorAll('#productsTable tr');
+      rows.forEach(r => {
+        const name = r.children[2].innerText.toLowerCase();
+        r.style.display = name.indexOf(q) !== -1 ? '' : 'none';
+      });
+    });
+
+    // optional: handle add product form submit with JS (demo only)
+    document.getElementById('addProductForm').addEventListener('submit', function(e){
+      // if you want to handle via AJAX, prevent default and send FormData
+      // e.preventDefault();
+      // demo: show spinner or validation
+    });
+  </script>
+</body>
+</html>
