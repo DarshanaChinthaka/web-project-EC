@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         // ✅ Correct check for @shopnest.com
         if (substr($email, -13) === "@shopnest.com") {
-            header("Location: admin.html");
+            header("Location: Admin/admin.html");
         } else {
             header("Location: index.html");
         }
