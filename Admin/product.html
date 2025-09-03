@@ -1,22 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Products - ShopNest Admin</title>
 
   <!-- Bootstrap 4 CSS -->
   <link href="../css/bootstrap-4.3.1.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
   <style>
-    body { min-height:100vh; background:#f4f6f9; }
-    .sidebar { min-height:100vh; background:#343a40; color:#fff; }
-    .sidebar a { color: #cfd8dc; }
-    .sidebar .nav-link.active { background: rgba(255,255,255,0.08); color:#fff; }
-    .card-stats { border-radius: .6rem; }
-    .table-responsive { max-height: 480px; overflow:auto; }
-    .brand { font-weight:700; color:#fff; }
+    body {
+      min-height: 100vh;
+      background: #f4f6f9;
+    }
+    .sidebar {
+      min-height: 100vh;
+      background: #343a40;
+      color: #fff;
+    }
+    .sidebar a {
+      color: #cfd8dc;
+    }
+    .sidebar .nav-link.active {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+    .card-stats {
+      border-radius: .6rem;
+    }
+    .table-responsive {
+      max-height: 480px;
+      overflow: auto;
+    }
+    .brand {
+      font-weight: 700;
+      color: #fff;
+    }
+    .alert-dismissible {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 1050;
+    }
   </style>
 </head>
 <body>
@@ -25,34 +51,33 @@
       <!-- Sidebar -->
       <nav class="col-md-2 sidebar p-3">
         <div class="mb-4 text-center">
-          <img src="../images/logo.png" alt="logo" width="60" class="img-fluid mb-2">
+          <img src="../images/logo.png" alt="ShopNest Logo" width="60" class="img-fluid mb-2">
           <div class="brand">ShopNest Admin</div>
         </div>
-
         <ul class="nav flex-column">
           <li class="nav-item">
             <a class="nav-link d-flex align-items-center" href="dashboard.html">
-              <i class="bi-speedometer2 mr-2"></i> Dashboard
+              <i class="bi bi-speedometer2 mr-2"></i> Dashboard
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link active d-flex align-items-center" href="product.html">
-              <i class="bi-box-seam mr-2"></i> Products
+              <i class="bi bi-box-seam mr-2"></i> Products
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link d-flex align-items-center" href="orders.html">
-              <i class="bi-card-list mr-2"></i> Orders
+              <i class="bi bi-card-list mr-2"></i> Orders
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link d-flex align-items-center" href="users.html">
-              <i class="bi-people mr-2"></i> Users
+              <i class="bi bi-people mr-2"></i> Users
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link d-flex align-items-center" href="settings.html">
-              <i class="bi-gear mr-2"></i> Settings
+              <i class="bi bi-gear mr-2"></i> Settings
             </a>
           </li>
           <li class="nav-item mt-3">
@@ -68,7 +93,7 @@
           <h3 class="m-0">Products</h3>
           <div>
             <button class="btn btn-success mr-2" data-toggle="modal" data-target="#addProductModal">
-              <i class="bi-plus-lg"></i> Add Product
+              <i class="bi bi-plus-lg"></i> Add Product
             </button>
             <button class="btn btn-outline-secondary">Sign out</button>
           </div>
@@ -81,7 +106,6 @@
               <h5 class="card-title mb-0">Product List</h5>
               <input id="searchProduct" class="form-control form-control-sm w-50" placeholder="Search product...">
             </div>
-
             <div class="table-responsive">
               <table class="table table-hover table-sm align-middle">
                 <thead class="thead-light">
@@ -98,29 +122,28 @@
                 <tbody id="productsTable">
                   <tr>
                     <td>1</td>
-                    <td><img src="../images/sample1.jpg" width="50" alt=""></td>
+                    <td><img src="../images/sample1.jpg" width="50" alt="Classic Watch"></td>
                     <td>Classic Watch</td>
-                    <td>4,500</td>
+                    <td>4,500.00</td>
                     <td>26</td>
                     <td>Watches</td>
                     <td>
-                      <button class="btn btn-sm btn-info">Edit</button>
-                      <button class="btn btn-sm btn-danger">Delete</button>
+                      <button class="btn btn-sm btn-info mr-1" onclick="editProduct(1)">Edit</button>
+                      <button class="btn btn-sm btn-danger" onclick="deleteProduct(1)">Delete</button>
                     </td>
                   </tr>
                   <tr>
                     <td>2</td>
-                    <td><img src="../images/sample2.jpg" width="50" alt=""></td>
+                    <td><img src="../images/sample2.jpg" width="50" alt="Wireless Headphones"></td>
                     <td>Wireless Headphones</td>
-                    <td>12,900</td>
+                    <td>12,900.00</td>
                     <td>10</td>
                     <td>Audio</td>
                     <td>
-                      <button class="btn btn-sm btn-info">Edit</button>
-                      <button class="btn btn-sm btn-danger">Delete</button>
+                      <button class="btn btn-sm btn-info mr-1" onclick="editProduct(2)">Edit</button>
+                      <button class="btn btn-sm btn-danger" onclick="deleteProduct(2)">Delete</button>
                     </td>
                   </tr>
-                  <!-- More rows from backend -->
                 </tbody>
               </table>
             </div>
@@ -141,17 +164,17 @@
       <form id="addProductForm" method="POST" action="add_product.php" enctype="multipart/form-data" class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="addProductLabel">Add New Product</h5>
-          <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span>&times;</span></button>
         </div>
         <div class="modal-body">
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label>Product Name</label>
-              <input name="name" type="text" class="form-control" required>
+              <label for="name">Product Name</label>
+              <input name="name" id="name" type="text" class="form-control" required>
             </div>
             <div class="form-group col-md-6">
-              <label>Category</label>
-              <select name="category_id" class="form-control" required>
+              <label for="category_id">Category</label>
+              <select name="category_id" id="category_id" class="form-control" required>
                 <option value="">-- Select Category --</option>
                 <option value="1">Watches</option>
                 <option value="2">Audio</option>
@@ -159,25 +182,23 @@
               </select>
             </div>
           </div>
-
           <div class="form-row">
             <div class="form-group col-md-4">
-              <label>Price (LKR)</label>
-              <input name="price" type="number" step="0.01" class="form-control" required>
+              <label for="price">Price (LKR)</label>
+              <input name="price" id="price" type="number" step="0.01" min="0" class="form-control" required>
             </div>
             <div class="form-group col-md-4">
-              <label>Stock Quantity</label>
-              <input name="stock_quantity" type="number" class="form-control" required>
+              <label for="stock_quantity">Stock Quantity</label>
+              <input name="stock_quantity" id="stock_quantity" type="number" min="0" class="form-control" required>
             </div>
             <div class="form-group col-md-4">
-              <label>Image</label>
-              <input name="image" type="file" class="form-control-file">
+              <label for="image">Image</label>
+              <input name="image" id="image" type="file" class="form-control-file" accept="image/jpeg,image/png,image/gif">
             </div>
           </div>
-
           <div class="form-group">
-            <label>Description</label>
-            <textarea name="description" rows="3" class="form-control"></textarea>
+            <label for="description">Description</label>
+            <textarea name="description" id="description" rows="3" class="form-control"></textarea>
           </div>
         </div>
         <div class="modal-footer">
@@ -188,18 +209,32 @@
     </div>
   </div>
 
-  <!-- JS -->
+  <!-- JavaScript -->
   <script src="../js/jquery-3.3.1.min.js"></script>
   <script src="../js/popper.min.js"></script>
   <script src="../js/bootstrap-4.3.1.js"></script>
   <script>
-    // search filter
+    // Search filter
     document.getElementById('searchProduct').addEventListener('input', function() {
-      const q = this.value.toLowerCase();
-      document.querySelectorAll('#productsTable tr').forEach(r => {
-        const name = r.children[2].innerText.toLowerCase();
-        r.style.display = name.includes(q) ? '' : 'none';
+      const query = this.value.toLowerCase();
+      document.querySelectorAll('#productsTable tr').forEach(row => {
+        const name = row.children[2].textContent.toLowerCase();
+        row.style.display = name.includes(query) ? '' : 'none';
       });
     });
 
-    // demo: add product f
+    // Placeholder for edit and delete functions
+    function editProduct(id) {
+      alert('Edit product ID: ' + id);
+      // TODO: Implement edit functionality
+    }
+
+    function deleteProduct(id) {
+      if (confirm('Are you sure you want to delete product ID ' + id + '?')) {
+        alert('Product ID ' + id + ' would be deleted (static demo).');
+        // TODO: Implement delete functionality
+      }
+    }
+  </script>
+</body>
+</html>
