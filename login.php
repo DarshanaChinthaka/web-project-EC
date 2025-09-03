@@ -11,13 +11,21 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $stmt->execute();
     $stmt->bind_result($id, $hashedPass, $role);
     $stmt->fetch();
+    $stmt->close();
 
     if ($id && password_verify($pass, $hashedPass)) {
         $_SESSION['user_id'] = $id;
         $_SESSION['role_id'] = $role;
-        header("Location: index.html"); // after login, go home
+
+        // ✅ Correct check for @shopnest.com
+        if (substr($email, -13) === "@shopnest.com") {
+            header("Location: admin.html");
+        } else {
+            header("Location: index.html");
+        }
         exit();
     } else {
         echo "<script>alert('Invalid email or password!'); window.location='login.html';</script>";
     }
 }
+?>
