@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if (substr($email, -13) === "@shopnest.com") {
             header("Location: Admin/admin.html");
         } else {
-            header("Location: index.html");
+            header("Location: index.php");
         }
         exit();
     } else {

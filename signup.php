@@ -36,7 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if ($stmt->execute()) {
         $_SESSION['user_id'] = $conn->insert_id;
         $_SESSION['role_id'] = $role;
-        header("Location: index.html");
+        $_SESSION['username'] = $name;
+        header("Location: index.php");
         exit();
     } else {
         echo "<script>alert('Error creating account: " . $stmt->error . "'); window.location='signup.html';</script>";
