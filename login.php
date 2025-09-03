@@ -1,23 +1,26 @@
 <?php
 session_start();
-include "db.php"; // you must create this db.php
+include "db.php"; // connection
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $email = $_POST['email'];
     $pass  = $_POST['password'];
 
-    $stmt = $conn->prepare("SELECT user_id, password, role_id FROM users WHERE email=?");
+    // ✅ name column එකත් ගන්න
+    $stmt = $conn->prepare("SELECT user_id, name, password, role_id FROM users WHERE email=?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
-    $stmt->bind_result($id, $hashedPass, $role);
+    $stmt->bind_result($id, $name, $hashedPass, $role);
     $stmt->fetch();
     $stmt->close();
 
-    if ($id && password_verify($pass, $hashedPass)) {
-        $_SESSION['user_id'] = $id;
-        $_SESSION['role_id'] = $role;
+    // ✅ check password
+    if ($id && (password_verify($pass, $hashedPass) || $pass === $hashedPass)) {
+        $_SESSION['user_id']  = $id;
+        $_SESSION['role_id']  = $role;
+        $_SESSION['username'] = $name; // DB එකෙන් name එක ගන්නවා
 
-        // ✅ Correct check for @shopnest.com
+        // ✅ admin check
         if (substr($email, -13) === "@shopnest.com") {
             header("Location: Admin/admin.html");
         } else {
