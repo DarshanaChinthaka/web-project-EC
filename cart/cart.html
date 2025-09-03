@@ -41,7 +41,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto align-items-center">
           <li class="nav-item mx-2"><a class="nav-link" href="../index.html">Home</a></li>
-		  <li class="nav-item mx-2"><a class="nav-link" href="../about.html">About</a></li>
+          <li class="nav-item mx-2"><a class="nav-link" href="../about.html">About</a></li>
           <li class="nav-item mx-2"><a class="nav-link" href="../contactUs.html">Contact Us</a></li>
           <li class="nav-item mx-2"><a class="nav-link" href="../signup.html">Sign In</a></li>
           <li class="nav-item">
@@ -88,21 +88,20 @@
         <div class="d-flex justify-content-between mb-3 font-weight-bold">
           <span>Total:</span> <span id="final-total">$0.00</span>
         </div>
-		  <a href="checkout.html" class="btn checkout-btn w-100">
-  <i class="bi bi-lock-fill"></i> Proceed to Checkout
-</a>
-
+        <a href="checkout.html" class="btn checkout-btn w-100">
+          <i class="bi bi-lock-fill"></i> Proceed to Checkout
+        </a>
       </div>
     </div>
   </div>
 
   <!-- Footer -->
- <footer class="py-5 bg-dark">
-  <div class="container">
-    <p class="m-0 text-center text-white">© 2025 ShopNest. All rights reserved.
-      This website and its content are the property of ShopNest. You may not copy, reuse, or distribute any part of this site without permission.</p>
-  </div>
-</footer>
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">© 2025 ShopNest. All rights reserved.
+        This website and its content are the property of ShopNest. You may not copy, reuse, or distribute any part of this site without permission.</p>
+    </div>
+  </footer>
 
   <!-- Scripts -->
   <script src="../js/jquery-3.3.1.min.js"></script>
@@ -112,62 +111,85 @@
   <!-- Cart Logic -->
   <script>
   document.addEventListener("DOMContentLoaded", () => {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    let tbody = document.querySelector("#cart-body");
+    // Check if localStorage is available
+    const cart = (typeof localStorage !== 'undefined' && localStorage.getItem("cart"))
+      ? JSON.parse(localStorage.getItem("cart")) || []
+      : [];
+    
+    const tbody = document.querySelector("#cart-body");
     let total = 0;
 
+    // Clear table body
     tbody.innerHTML = "";
-    if (cart.length === 0) {
-      tbody.innerHTML = <tr><td colspan="5" class="text-center">Your cart is empty!</td></tr>;
+    
+    // Display empty cart message if cart is empty
+    if (!Array.isArray(cart) || cart.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="5" class="text-center">Your cart is empty!</td></tr>`;
+    } else {
+      // Render cart items
+      cart.forEach((item, index) => {
+        // Basic sanitization to prevent XSS
+        const safeName = item.name ? item.name.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "Unknown Product";
+        const safeImg = item.img ? item.img.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
+        const qty = parseInt(item.qty) || 1; // Ensure qty is a number
+        const price = parseFloat(item.price) || 0; // Ensure price is a number
+
+        if (qty < 1) return; // Skip invalid items
+
+        const row = `
+          <tr>
+            <td><img src="${safeImg}" width="70" alt="Product Image"></td>
+            <td>${safeName}</td>
+            <td>
+              <input type="number" value="${qty}" min="1" 
+                class="form-control text-center qty-input" data-index="${index}" style="width:80px;">
+            </td>
+            <td>$${(price * qty).toFixed(2)}</td>
+            <td><button class="btn btn-sm btn-danger remove-item" data-index="${index}">
+              <i class="bi bi-trash"></i>
+            </button></td>
+          </tr>
+        `;
+        tbody.innerHTML += row;
+        total += price * qty;
+      });
     }
 
-    cart.forEach((item, index) => {
-      let row = `
-        <tr>
-          <td><img src="${item.img}" width="70"></td>
-          <td>${item.name}</td>
-          <td>
-            <input type="number" value="${item.qty}" min="1" 
-              class="form-control text-center qty-input" data-index="${index}" style="width:80px;">
-          </td>
-          <td>$${(item.price * item.qty).toFixed(2)}</td>
-          <td><button class="btn btn-sm btn-danger remove-item" data-index="${index}">
-            <i class="bi bi-trash"></i>
-          </button></td>
-        </tr>
-      `;
-      tbody.innerHTML += row;
-      total += item.price * item.qty;
+    // Update subtotal and total
+    const cartTotal = document.querySelector("#cart-total");
+    const finalTotal = document.querySelector("#final-total");
+    cartTotal.textContent = `$${total.toFixed(2)}`;
+    finalTotal.textContent = `$${(total + (cart.length > 0 ? 5 : 0)).toFixed(2)}`;
+
+    // Update cart count in navbar
+    const count = Array.isArray(cart) ? cart.reduce((acc, item) => acc + (parseInt(item.qty) || 0), 0) : 0;
+    document.querySelectorAll(".cart-count").forEach(el => {
+      el.textContent = count;
     });
 
-    // Subtotal & Total update
-    document.querySelector("#cart-total").textContent = $${total.toFixed(2)};
-    document.querySelector("#final-total").textContent = $${(total + (cart.length > 0 ? 5 : 0)).toFixed(2)};
-
-    // Qty change
+    // Handle quantity change
     document.querySelectorAll(".qty-input").forEach(input => {
       input.addEventListener("change", (e) => {
-        let index = e.target.dataset.index;
-        cart[index].qty = parseInt(e.target.value);
-        localStorage.setItem("cart", JSON.stringify(cart));
-        location.reload();
+        const index = e.target.dataset.index;
+        const newQty = parseInt(e.target.value);
+        if (newQty >= 1) {
+          cart[index].qty = newQty;
+          localStorage.setItem("cart", JSON.stringify(cart));
+          location.reload();
+        } else {
+          e.target.value = cart[index].qty; // Revert to previous value
+        }
       });
     });
 
-    // Remove item
+    // Handle item removal
     document.querySelectorAll(".remove-item").forEach(button => {
       button.addEventListener("click", (e) => {
-        let index = e.target.dataset.index;
+        const index = e.target.dataset.index;
         cart.splice(index, 1);
         localStorage.setItem("cart", JSON.stringify(cart));
         location.reload();
       });
-    });
-
-    // Navbar badge
-    let count = cart.reduce((acc, item) => acc + item.qty, 0);
-    document.querySelectorAll(".cart-count").forEach(el => {
-      el.textContent = count;
     });
   });
   </script>

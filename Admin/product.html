@@ -1,153 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ShopNest - Manage Products</title>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Products - ShopNest Admin</title>
+
+  <!-- Bootstrap 4 CSS -->
+  <link href="../css/bootstrap-4.3.1.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
-    body { background: #f7f9fc; color: #333; }
-
-    .container { display: flex; min-height: 100vh; }
-
-    /* Sidebar */
-    .sidebar {
-      width: 220px;
-      background: #1e293b;
-      color: #fff;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-    }
-    .sidebar h2 { font-size: 18px; margin-bottom: 20px; }
-    .sidebar a {
-      text-decoration: none;
-      color: #cbd5e1;
-      padding: 10px;
-      border-radius: 6px;
-      display: block;
-      margin-bottom: 5px;
-      transition: 0.2s;
-    }
-    .sidebar a:hover, .sidebar a.active {
-      background: #334155;
-      color: #fff;
-    }
-
-    /* Main */
-    .main { flex: 1; padding: 20px; }
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-    .topbar h1 { font-size: 22px; }
-    .topbar button {
-      padding: 8px 14px;
-      background: #22c55e;
-      border: none;
-      color: #fff;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .topbar button:hover { background: #16a34a; }
-
-    /* Table */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: #fff;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    }
-    table thead {
-      background: #1e293b;
-      color: #fff;
-    }
-    table th, table td {
-      padding: 12px 15px;
-      text-align: left;
-      border-bottom: 1px solid #eee;
-    }
-    table tr:hover { background: #f1f5f9; }
-    .actions button {
-      padding: 6px 10px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-right: 5px;
-      font-size: 13px;
-    }
-    .btn-edit { background: #3b82f6; color: #fff; }
-    .btn-edit:hover { background: #2563eb; }
-    .btn-delete { background: #ef4444; color: #fff; }
-    .btn-delete:hover { background: #dc2626; }
+    body { min-height:100vh; background:#f4f6f9; }
+    .sidebar { min-height:100vh; background:#343a40; color:#fff; }
+    .sidebar a { color: #cfd8dc; }
+    .sidebar .nav-link.active { background: rgba(255,255,255,0.08); color:#fff; }
+    .card-stats { border-radius: .6rem; }
+    .table-responsive { max-height: 480px; overflow:auto; }
+    .brand { font-weight:700; color:#fff; }
   </style>
 </head>
 <body>
+  <div class="container-fluid">
+    <div class="row no-gutters">
+      <!-- Sidebar -->
+      <nav class="col-md-2 sidebar p-3">
+        <div class="mb-4 text-center">
+          <img src="../images/logo.png" alt="logo" width="60" class="img-fluid mb-2">
+          <div class="brand">ShopNest Admin</div>
+        </div>
 
-<div class="container">
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <h2>ShopNest</h2>
-    <a href="index.html">Dashboard</a>
-    <a href="product.html" class="active">Products</a>
-    <a href="orders.html">Orders</a>
-    <a href="customers.html">Customers</a>
-    <a href="inventory.html">Inventory</a>
-    <a href="settings.html">Settings</a>
-  </div>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link d-flex align-items-center" href="admin.html">
+              <i class="bi-speedometer2 mr-2"></i> Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active d-flex align-items-center" href="product.html">
+              <i class="bi-box-seam mr-2"></i> Products
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link d-flex align-items-center" href="orders.html">
+              <i class="bi-card-list mr-2"></i> Orders
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link d-flex align-items-center" href="users.html">
+              <i class="bi-people mr-2"></i> Users
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link d-flex align-items-center" href="settings.html">
+              <i class="bi-gear mr-2"></i> Settings
+            </a>
+          </li>
+          <li class="nav-item mt-3">
+            <a class="btn btn-danger btn-block" href="../index.html">Go to Store</a>
+          </li>
+        </ul>
+      </nav>
 
-  <!-- Main -->
-  <div class="main">
-    <div class="topbar">
-      <h1>Manage Products</h1>
-      <button>Add Product</button>
+      <!-- Main content -->
+      <main class="col-md-10 p-4">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h3 class="m-0">Products</h3>
+          <div>
+            <button class="btn btn-success mr-2" data-toggle="modal" data-target="#addProductModal">
+              <i class="bi-plus-lg"></i> Add Product
+            </button>
+			  <a href="signout.html">
+            <button class="btn btn-outline-secondary">Sign out</button>
+			</a>
+          </div>
+        </div>
+
+        <!-- Products Table -->
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h5 class="card-title mb-0">Product List</h5>
+              <input id="searchProduct" class="form-control form-control-sm w-50" placeholder="Search product...">
+            </div>
+
+            <div class="table-responsive">
+              <table class="table table-hover table-sm align-middle">
+                <thead class="thead-light">
+                  <tr>
+                    <th>#</th>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Price (LKR)</th>
+                    <th>Stock</th>
+                    <th>Category</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="productsTable">
+                  <tr>
+                    <td>1</td>
+                    <td><img src="../images/sample1.jpg" width="50" alt=""></td>
+                    <td>Classic Watch</td>
+                    <td>4,500</td>
+                    <td>26</td>
+                    <td>Watches</td>
+                    <td>
+                      <button class="btn btn-sm btn-info">Edit</button>
+                      <button class="btn btn-sm btn-danger">Delete</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td><img src="../images/sample2.jpg" width="50" alt=""></td>
+                    <td>Wireless Headphones</td>
+                    <td>12,900</td>
+                    <td>10</td>
+                    <td>Audio</td>
+                    <td>
+                      <button class="btn btn-sm btn-info">Edit</button>
+                      <button class="btn btn-sm btn-danger">Delete</button>
+                    </td>
+                  </tr>
+                  <!-- More rows from backend -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-4 text-muted small">
+          © 2025 ShopNest. Admin Panel.
+        </footer>
+      </main>
     </div>
-
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Product</th>
-          <th>Category</th>
-          <th>Price</th>
-          <th>Stock</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody id="productTable">
-        <!-- Data loads here from DB -->
-      </tbody>
-    </table>
   </div>
-</div>
 
-<script>
-  fetch("getProducts.php")
-    .then(res => res.json())
-    .then(data => {
-      let table = document.getElementById("productTable");
-      table.innerHTML = "";
-      data.forEach(p => {
-        table.innerHTML += `
-          <tr>
-            <td>#${p.id}</td>
-            <td>${p.name}</td>
-            <td>${p.category}</td>
-            <td>$${p.price}</td>
-            <td>${p.stock}</td>
-            <td class="actions">
-              <button class="btn-edit">Edit</button>
-              <button class="btn-delete">Delete</button>
-            </td>
-          </tr>`;
+  <!-- Add Product Modal -->
+  <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <form id="addProductForm" method="POST" action="add_product.php" enctype="multipart/form-data" class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addProductLabel">Add New Product</h5>
+          <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label>Product Name</label>
+              <input name="name" type="text" class="form-control" required>
+            </div>
+            <div class="form-group col-md-6">
+              <label>Category</label>
+              <select name="category_id" class="form-control" required>
+                <option value="">-- Select Category --</option>
+                <option value="1">Watches</option>
+                <option value="2">Audio</option>
+                <option value="3">Accessories</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label>Price (LKR)</label>
+              <input name="price" type="number" step="0.01" class="form-control" required>
+            </div>
+            <div class="form-group col-md-4">
+              <label>Stock Quantity</label>
+              <input name="stock_quantity" type="number" class="form-control" required>
+            </div>
+            <div class="form-group col-md-4">
+              <label>Image</label>
+              <input name="image" type="file" class="form-control-file">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Description</label>
+            <textarea name="description" rows="3" class="form-control"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save Product</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="../js/jquery-3.3.1.min.js"></script>
+  <script src="../js/popper.min.js"></script>
+  <script src="../js/bootstrap-4.3.1.js"></script>
+  <script>
+    // search filter
+    document.getElementById('searchProduct').addEventListener('input', function() {
+      const q = this.value.toLowerCase();
+      document.querySelectorAll('#productsTable tr').forEach(r => {
+        const name = r.children[2].innerText.toLowerCase();
+        r.style.display = name.includes(q) ? '' : 'none';
       });
-    })
-    .catch(err => console.error("Error loading products:", err));
-</script>
+    });
 
-</body>
-</html>
+    // demo: add product f
