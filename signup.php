@@ -60,7 +60,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $_SESSION['user_id']  = $conn->insert_id;
         $_SESSION['role_id']  = $role;
         $_SESSION['username'] = $name;
-        header("Location: index.php");
+
+        // Admin redirect check
+        if (substr($email, -13) === "@shopnest.com") {
+            header("Location: Admin/admin.html");
+        } else {
+            header("Location: index.php");
+        }
         exit();
     } else {
         echo "<script>alert('Error creating account: " . $stmt->error . "'); window.location='signup.html';</script>";
