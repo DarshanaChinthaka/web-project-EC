@@ -6,8 +6,6 @@
 
 Welcome to **ShopNest**, a stylish and user-friendly online store designed to display a wide variety of lifestyle and tech products. This project showcases modern product layouts, category-based browsing, and attractive UI elements.
 
-🔗 **Live Website:** [Click here to visit](https://darshanachinthaka.github.io/web-project-EC/)
-
 ---
 
 ## 👥 Group Project
