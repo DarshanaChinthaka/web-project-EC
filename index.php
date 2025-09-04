@@ -1,19 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ShopNest</title>
-  <!-- Bootstrap -->
-  <link href="css/bootstrap-4.3.1.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-  <link href="items/assets/styles.css" rel="stylesheet">
-  <link rel="icon" type="image/x-icon" href="images/logo.ico" />
-</head>
-
-<body>
 
     <?php include("navbar.php"); ?>
      
@@ -244,21 +229,5 @@
       </div>
     </div>
   </div>
-  <hr>
-  <hr>
-  <hr>
-  <footer class="py-5 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">© 2025 ShopNest. All rights reserved.
-        This website and its content are the property of ShopNest. You may not copy, reuse, or distribute any part of
-        this site without permission.</p>
-    </div>
-  </footer>
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="js/jquery-3.3.1.min.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap-4.3.1.js"></script>
-</body>
 
-</html>
+    <?php include("footer.php"); ?>
