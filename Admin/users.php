@@ -1,9 +1,10 @@
 <?php
 session_start();
+/*
 if (!isset($_SESSION['role_id']) || $_SESSION['role_id'] != 1) {
     header("Location: ../login.html");
     exit;
-}
+} */
 
 include realpath(__DIR__ . '/../db.php');
 if (!$conn) {

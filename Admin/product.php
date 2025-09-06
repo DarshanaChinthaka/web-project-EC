@@ -1,10 +1,12 @@
 <?php
 // Start session and check authentication at the very top
 session_start();
+/*
 if (!isset($_SESSION['role_id']) || $_SESSION['role_id'] != 1) {
     header("Location: ../login.html");
     exit;
 }
+    */
 
 // Include database connection
 $dbPath = realpath(__DIR__ . '/../db.php');
