@@ -170,15 +170,15 @@
     </div>
     <div class="row">
       <div class="col-lg-4 col-md-6 mb-4 text-center category-item">
-        <a href="category/1.html"><img class="rounded-circle mb-3" src="images/category/gig3 (2).jpg" width="140" height="140"></a>
+        <a href="category/Watches.php"><img class="rounded-circle mb-3" src="images/category/gig3 (2).jpg" width="140" height="140"></a>
         <h5>Watches</h5>
       </div>
       <div class="col-lg-4 col-md-6 mb-4 text-center category-item">
-        <a href="category/2.html"><img class="rounded-circle mb-3" src="images/category/cat (8).jpg" width="140" height="140"></a>
+        <a href="category/DigitalCameras.php"><img class="rounded-circle mb-3" src="images/category/cat (8).jpg" width="140" height="140"></a>
         <h5>Digital Cameras</h5>
       </div>
       <div class="col-lg-4 col-md-6 mb-4 text-center category-item">
-        <a href="category/3.html"><img class="rounded-circle mb-3" src="images/category/cat (6).jpg" width="140" height="140"></a>
+        <a href="category/ToysAndGames.php"><img class="rounded-circle mb-3" src="images/category/cat (6).jpg" width="140" height="140"></a>
         <h5>Toys & Games</h5>
       </div>
       <!-- Continue the same for other categories -->

@@ -277,18 +277,18 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
         <li class="nav-item"><a class="nav-link active" href="about.php">About</a></li>
-        <li class="nav-item"><a class="nav-link active" href="contactUs.html">Contact Us</a></li>
+        <li class="nav-item"><a class="nav-link active" href="contactUs.php">Contact Us</a></li>
         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Category</a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="category/1.html">Watches</a></li>
-            <li><a class="dropdown-item" href="category/2.html">Digital Cameras</a></li>
-            <li><a class="dropdown-item" href="category/3.html">Toys & Games</a></li>
-            <li><a class="dropdown-item" href="category/4.html">Jewellery</a></li>
-            <li><a class="dropdown-item" href="category/5.html">Home Accessories</a></li>
-            <li><a class="dropdown-item" href="category/6.html">Sport Accessories</a></li>
-            <li><a class="dropdown-item" href="category/7.html">Cap & Hat</a></li>
-            <li><a class="dropdown-item" href="category/8.html">Computer Accessories</a></li>
-            <li><a class="dropdown-item" href="category/9.html">Sunglass</a></li>
+            <li><a class="dropdown-item" href="category/Watches.php">Watches</a></li>
+            <li><a class="dropdown-item" href="category/DigitalCameras.php">Digital Cameras</a></li>
+            <li><a class="dropdown-item" href="category/ToysAndGames.php">Toys & Games</a></li>
+            <li><a class="dropdown-item" href="category/Jewelry.php">Jewellery</a></li>
+            <li><a class="dropdown-item" href="category/HomeAccessories.php">Home Accessories</a></li>
+            <li><a class="dropdown-item" href="category/SportAccessories.php">Sport Accessories</a></li>
+            <li><a class="dropdown-item" href="category/CapAndHat.php">Cap & Hat</a></li>
+            <li><a class="dropdown-item" href="category/ComputerAccessories.php">Computer Accessories</a></li>
+            <li><a class="dropdown-item" href="category/Sunglass.php">Sunglass</a></li>
           </ul>
         </li>
       </ul>
