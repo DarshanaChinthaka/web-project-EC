@@ -1,23 +1,28 @@
 <?php
 header('Content-Type: application/json');
 
-$servername = "localhost";  // change if needed
-$username   = "root";       // your MySQL username
-$password   = "";           // your MySQL password
-$dbname     = "shopnest";
+// Include db.php from the root directory
+$dbPath = realpath(__DIR__ . '/db.php');
+if (file_exists($dbPath)) {
+    include $dbPath;
+} else {
+    die(json_encode(["error" => "Database connection file (db.php) not found."]));
+}
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-  die(json_encode(["error" => "Connection failed: " . $conn->connect_error]));
+if (!$conn) {
+    die(json_encode(["error" => "Connection failed: " . mysqli_connect_error()]));
 }
 
 $sql = "SELECT * FROM products";
 $result = $conn->query($sql);
 
 $rows = [];
-while($row = $result->fetch_assoc()) {
-  $rows[] = $row;
+if ($result) {
+    while ($row = $result->fetch_assoc()) {
+        $rows[] = $row;
+    }
+} else {
+    $rows = ["error" => "Query failed: " . $conn->error];
 }
 
 echo json_encode($rows);
