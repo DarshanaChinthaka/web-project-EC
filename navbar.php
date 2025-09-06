@@ -203,6 +203,14 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
   backdrop-filter: blur(10px);
   white-space: nowrap;
   font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.user-greeting:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 .auth-buttons {
@@ -306,11 +314,15 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
       <div class="user-section">
         <?php if (!isset($_SESSION['user_id'])): ?>
           <div class="auth-buttons">
-            <a href="signup.html" class="btn btn-success">SIGN UP</a>
+            <a href="signup.html" class="btn btn-success">SIGN IN</a>
             <a href="login.php" class="btn btn-danger">LOGIN</a>
           </div>
         <?php else: ?>
-          <span class="user-greeting">Hi, <?php echo htmlspecialchars($_SESSION['username']); ?></span>
+          <?php if ($_SESSION['role_id'] == 1): ?>
+            <a href="Admin/admin.html" class="user-greeting">Hi, <?php echo htmlspecialchars($_SESSION['username']); ?></a>
+          <?php else: ?>
+            <span class="user-greeting">Hi, <?php echo htmlspecialchars($_SESSION['username']); ?></span>
+          <?php endif; ?>
           <a href="logout.php" class="btn btn-warning">LOGOUT</a>
         <?php endif; ?>   
       </div>

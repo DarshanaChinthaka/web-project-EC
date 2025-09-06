@@ -50,7 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     // Hash password
     $hashedPass = password_hash($pass, PASSWORD_DEFAULT);
-    $role = 2; // normal user
+    // Set role: 1 for admin (@shopnest.com), 2 for normal user
+    $role = (substr($email, -13) === "@shopnest.com") ? 1 : 2;
 
     // Insert user
     $stmt = $conn->prepare("INSERT INTO users (name, email, password, role_id, created_at) VALUES (?, ?, ?, ?, NOW())");
@@ -61,12 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $_SESSION['role_id']  = $role;
         $_SESSION['username'] = $name;
 
-        // Admin redirect check
-        if (substr($email, -13) === "@shopnest.com") {
-            header("Location: Admin/admin.html");
-        } else {
-            header("Location: index.php");
-        }
+        // Redirect to index.php for all users
+        header("Location: index.php");
         exit();
     } else {
         echo "<script>alert('Error creating account: " . $stmt->error . "'); window.location='signup.html';</script>";
