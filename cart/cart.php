@@ -224,7 +224,7 @@
                 <p class="footer-text mb-2">© 2025 ShopNest. All rights reserved.</p>
                 <p class="footer-copyright mb-0">
                     This website and its content are the property of ShopNest.<br>
-                    You may not copy, reuse, or distribute any part of this site without permission.
+                    You may have not copy, reuse, or distribute any part of this site without permission.
                 </p>
             </div>
         </footer>
