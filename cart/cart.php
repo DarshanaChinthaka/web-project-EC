@@ -5,14 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ShopNest - Shopping Cart</title>
-    <base href="../">
+    <base href="/WEB-PROJECT-EC/">
     <link href="css/bootstrap-4.3.1.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <link href="items/assets/styles.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="images/logo.ico" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="cart/css/cart-styles.css" rel="stylesheet">
-    
 </head>
 <body>
     <?php
@@ -22,6 +21,24 @@
     // Initialize cart if not exists
     if (!isset($_SESSION['cart'])) {
         $_SESSION['cart'] = array();
+    }
+
+    // Fetch product images from DB for all cart items (efficient single query)
+    $product_images = [];
+    if (!empty($_SESSION['cart'])) {
+        $ids = array_column($_SESSION['cart'], 'id');
+        if (!empty($ids)) {
+            $placeholders = implode(',', array_fill(0, count($ids), '?'));
+            $sql_images = "SELECT id, image FROM products WHERE id IN ($placeholders)";
+            $stmt_images = $conn->prepare($sql_images);
+            $stmt_images->bind_param(str_repeat('i', count($ids)), ...$ids);
+            $stmt_images->execute();
+            $result_images = $stmt_images->get_result();
+            while ($row_img = $result_images->fetch_assoc()) {
+                $product_images[$row_img['id']] = $row_img['image'];
+            }
+            $stmt_images->close();
+        }
     }
     ?>
 
@@ -88,13 +105,11 @@
                                             $subtotal = floatval($item['price']) * intval($item['quantity']);
                                             $total += $subtotal;
                                             
-                                            // Safe image handling
-                                            $image_src = 'images/placeholder.jpg';
-                                            if (isset($item['image']) && !empty($item['image'])) {
-                                                $image_path = 'images/products/' . $item['image'];
-                                                if (file_exists($image_path)) {
-                                                    $image_src = $image_path;
-                                                }
+                                            // Use fetched image
+                                            $image_name = isset($product_images[$item['id']]) ? $product_images[$item['id']] : '';
+                                            $image_src = 'images/placeholder.jpg'; // Fallback
+                                            if (!empty($image_name)) {
+                                                $image_src = 'images/products/' . $image_name;
                                             }
                                             
                                             echo "<tr class='cart-item-row'>
