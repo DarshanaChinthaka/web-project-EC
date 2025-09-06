@@ -1,12 +1,6 @@
 <?php
 // Start session and check authentication at the very top
 session_start();
-/*
-if (!isset($_SESSION['role_id']) || $_SESSION['role_id'] != 1) {
-    header("Location: ../login.html");
-    exit;
-}
-    */
 
 // Include database connection
 $dbPath = realpath(__DIR__ . '/../db.php');
@@ -20,7 +14,13 @@ $conn = isset($conn) ? $conn : null;
 if (!$conn) {
     die("Database connection failed: " . mysqli_connect_error());
 }
+
+// Fetch all products for real-time filtering
+$sql = "SELECT * FROM products ORDER BY id DESC";
+$result = $conn->query($sql);
+$products = $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -187,6 +187,10 @@ if (!$conn) {
             margin-bottom: 30px;
             box-shadow: var(--card-shadow);
             animation: slideInDown 0.3s ease-out;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
         }
 
         @keyframes slideInDown {
@@ -309,6 +313,47 @@ if (!$conn) {
         .nav-item.active::after {
             height: 60%;
         }
+
+        /* Search bar styling */
+        .search-bar {
+            display: flex;
+            align-items: center;
+            max-width: 300px;
+            width: 100%;
+        }
+
+        .search-bar .form-control {
+            border: none;
+            border-radius: 25px 0 0 25px;
+            padding-left: 40px;
+            background: #f8f9fa;
+            box-shadow: none;
+        }
+
+        .search-bar .input-group-append .btn {
+            border-radius: 0 25px 25px 0;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+        }
+
+        .search-bar .input-group-append .btn:hover {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
+
+        .search-bar .input-group {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-bar .input-group .bi-search {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+        }
     </style>
 </head>
 <body>
@@ -355,12 +400,21 @@ if (!$conn) {
 
             <main class="col-md-10 main-content p-4">
                 <div class="header-section">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h3 class="m-0" style="background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Products</h3>
-                            <p class="text-muted mb-0">Manage your store's product inventory.</p>
+                    <div>
+                        <h3 class="m-0" style="background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Products</h3>
+                        <p class="text-muted mb-0">Manage your store's product inventory.</p>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <div class="search-bar">
+                            <div class="input-group">
+                                <input type="text" id="searchInput" class="form-control" placeholder="Search products..." autocomplete="off">
+                                <div class="input-group-append">
+                                    <button class="btn" type="button"><i class="bi-search"></i></button>
+                                </div>
+                                <i class="bi-search"></i>
+                            </div>
                         </div>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProductModal">
+                        <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="#addProductModal">
                             <i class="bi-plus-circle mr-1"></i> Add Product
                         </button>
                     </div>
@@ -381,11 +435,9 @@ if (!$conn) {
                         </thead>
                         <tbody>
                             <?php
-                            $sql = "SELECT * FROM products";
-                            $result = $conn->query($sql);
-                            if ($result && $result->num_rows > 0) {
+                            if (!empty($products)) {
                                 $i = 1;
-                                while ($row = $result->fetch_assoc()) {
+                                foreach ($products as $row) {
                                     echo "<tr>
                                         <td>$i</td>
                                         <td><img src='../images/products/{$row['image']}' width='50' alt='{$row['name']}'></td>
@@ -397,7 +449,7 @@ if (!$conn) {
                                             <a href='#' class='edit btn btn-sm btn-warning' data-toggle='modal' data-target='#editProductModal'
                                                data-id='{$row['id']}' data-name='{$row['name']}' data-category='{$row['category']}' 
                                                data-price='{$row['price']}' data-stock='{$row['stock']}' data-description='{$row['description']}'>Edit</a>
-                                            <a href='delete_product.php?id={$row['id']}' class='btn btn-sm btn-danger' onclick='return confirm(\"Are you sure?\")'>Delete</a>
+                                            <a href='delete_product.php?id={$row['id']}' class='btn btn-sm btn-danger ml-2' onclick='return confirm(\"Are you sure?\")'>Delete</a>
                                         </td>
                                     </tr>";
                                     $i++;
@@ -483,7 +535,7 @@ if (!$conn) {
             <div class="modal-content">
                 <form method="post" action="update_product.php" enctype="multipart/form-data">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editProductLabel"><i class="bi-pencil-square mr-2"></i>Edit Product</h5>
+                        <h3 class="modal-title" id="editProductLabel"><i class="bi-pencil-square mr-2"></i>Edit Product</h3>
                         <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -584,6 +636,29 @@ if (!$conn) {
                     }
                 });
             }
+
+            // Real-time search functionality
+            const searchInput = document.getElementById('searchInput');
+            const tableBody = document.querySelector('#productsTable tbody');
+            const rows = tableBody.getElementsByTagName('tr');
+
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+
+                Array.from(rows).forEach(row => {
+                    const cells = row.getElementsByTagName('td');
+                    let match = false;
+
+                    for (let i = 1; i < cells.length - 1; i++) { // Skip # and Actions columns
+                        if (cells[i].textContent.toLowerCase().includes(searchTerm)) {
+                            match = true;
+                            break;
+                        }
+                    }
+
+                    row.style.display = match ? '' : 'none';
+                });
+            });
         });
     </script>
 </body>
