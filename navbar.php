@@ -276,7 +276,7 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-        <li class="nav-item"><a class="nav-link active" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link active" href="about.php">About</a></li>
         <li class="nav-item"><a class="nav-link active" href="contactUs.html">Contact Us</a></li>
         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Category</a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
