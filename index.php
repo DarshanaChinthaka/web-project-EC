@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
  
@@ -88,6 +87,66 @@
     footer {
       background: linear-gradient(to right, #212529, #343a40);
     }
+
+    /* Search Bar Styling */
+    .search-bar {
+      display: flex;
+      align-items: center;
+      max-width: 500px;
+      margin: 20px auto;
+      position: relative;
+    }
+
+    .search-bar .form-control {
+      border: none;
+      border-radius: 30px 0 0 30px;
+      padding: 12px 40px;
+      background: #fff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .search-bar .form-control:focus {
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+      outline: none;
+    }
+
+    .search-bar .input-group-append .btn {
+      border-radius: 0 30px 30px 0;
+      background: linear-gradient(135deg, #17a2b8 0%, #20c997 100%);
+      color: #fff;
+      border: none;
+      padding: 12px 25px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .search-bar .input-group-append .btn:hover {
+      background: linear-gradient(135deg, #20c997 0%, #17a2b8 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(23, 162, 184, 0.3);
+    }
+
+    .search-bar .input-group .bi-search {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #6c757d;
+    }
+
+    /* Hide/Show Sections */
+    .search-active .carousel, .search-active .feature-box, .search-active .category-item, .search-active footer {
+      display: none;
+    }
+
+    .search-active #productRow {
+      display: block;
+
+      
+    }
+    
   </style>
 </head>
 <body>
@@ -95,6 +154,17 @@
   session_start();
   include("navbar.php");
   ?>
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <div class="input-group">
+      <input type="text" id="searchInput" class="form-control" placeholder="Search products..." autocomplete="off">
+      <div class="input-group-append">
+        <button class="btn" type="button"><i class="bi-search"></i></button>
+      </div>
+      <i class="bi-search"></i>
+    </div>
+  </div>
+
   <!-- Carousel -->
   <div class="container mt-4">
     <div class="row">
@@ -187,18 +257,18 @@
 
   <!-- Recommended Products -->
   <div class="container mt-5">
-    <h2 class="text-center">Recommended Products</h2>
+    
     <hr>
     <?php
     include 'db.php';
     $sql = "SELECT * FROM products ORDER BY id DESC LIMIT 6";
     $result = $conn->query($sql);
     $count = 0;
-    echo '<div class="row">';
+    echo '<div class="row" id="productRow">';
     if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
         if ($count > 0 && $count % 3 == 0) {
-          echo '</div><div class="row mt-4">';
+          echo '</div><div class="row mt-4" id="productRow">';
         }
         echo '
         <div class="col-md-4 mb-4">
@@ -232,4 +302,28 @@
   <script src="js/jquery-3.3.1.min.js"></script>
   <script src="js/popper.min.js"></script>
   <script src="js/bootstrap-4.3.1.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#searchInput').on('input', function() {
+        var searchTerm = $(this).val().toLowerCase().trim();
+        var $body = $('body');
+        if (searchTerm.length > 0) {
+          $body.addClass('search-active');
+          $('#productRow .col-md-4').each(function() {
+            var productName = $(this).find('.card-title').text().toLowerCase();
+            var productDesc = $(this).find('.card-text').text().toLowerCase();
+            if (productName.includes(searchTerm) || productDesc.includes(searchTerm)) {
+              $(this).show();
+            } else {
+              $(this).hide();
+            }
+          });
+        } else {
+          $body.removeClass('search-active');
+          $('#productRow .col-md-4').show();
+        }
+      });
+    });
+  </script>
 </body>
+</html>
