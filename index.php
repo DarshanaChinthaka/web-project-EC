@@ -227,3 +227,9 @@
       <p class="m-0 text-white">© 2025 ShopNest. All rights reserved.</p>
     </div>
   </footer>
+
+  <!-- Scripts -->
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap-4.3.1.js"></script>
+</body>
