@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 12, 2025 at 08:21 PM
+-- Generation Time: Sep 12, 2025 at 09:16 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -68,9 +68,8 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `category`, `price`, `stock`, `image`, `description`) VALUES
-(3, 'Nokia 105', 'Home Accessories', 5005.00, 2, '68b9b1af69606.jpg', 'Good phone '),
 (4, 'Tricycle', 'Toys & Games', 15000.00, 2, '68b9ad880db90.png', 'Good product'),
-(7, 'Kitchen Stainless steel Knife in Black Colour', 'Home Accessories', 2000.00, 4, '68bb1ca89f5c3.jpg', 'Kitchen Stainless steel Knife in Black Colour'),
+(7, 'Kitchen Stainless steel Knife in Black Colour', 'Home Accessories', 20.00, 4, '68bb1ca89f5c3.jpg', 'Kitchen Stainless steel Knife in Black Colour'),
 (16, 'Men NH35 Dive Watch with Ceramic Bezel', 'Watches', 24900.00, 4, '68c4544fd39ac.jpeg', 'The Steeldive SD1970 is a 44MM men\'s dive watch featuring a reliable NH35 automatic movement, ceramic bezel, luminous markers, stainless steel build, and 200M water resistance for durability.\r\n'),
 (17, 'HUAWEI Dual-GPS Smartwatch ', 'Watches', 1000.00, 10, '68c454bd40584.jpeg', 'New For HUAWEI Dual-Band Satellite GPS Smartwatch Ultra HD AMOLED Screen Compass 10ATM Waterproof Sports SmartBracelet Men Watch \r\n'),
 (18, 'UTHAI Luxury Quartz Watch ', 'Watches', 3400.00, 20, '68c455a89052b.jpeg', 'Elevate your style with the UTHAI Men’s Luxury Quartz Watch. Featuring a hollow Roman dial, waterproof design, and sleek versatility—perfect for both formal occasions and everyday sophistication. \r\n'),
@@ -78,7 +77,7 @@ INSERT INTO `products` (`id`, `name`, `category`, `price`, `stock`, `image`, `de
 (20, 'Luxury Steel Business Watch ', 'Watches', 1900.00, 20, '68c4574bead9b.jpeg', 'Fashion Men Stainless Steel Watch Luxury Calendar Quartz Wrist Watch Business Watches Man Clock Male Bracelet Wristwatch \r\n'),
 (21, 'Men\'s business and casual quartz watch ', 'Watches', 2010.00, 10, '68c457738bbac.jpeg', 'A refined blend of style and function, this men’s quartz watch suits both business and casual wear. Features a sleek design, reliable movement, and comfortable fit for everyday confidence. \r\n'),
 (22, 'HUIAWE 2025 GPS Smartwatch ', 'Watches', 2000.00, 20, '68c4579aed54f.jpeg', '2025 NEW For HUIAWE GPS Smart Watch Men 10ATM IP69K Waterproof Smart Watches Compass Altimeter Barometric 1.43\'\' AMOLED Bracelet \r\n'),
-(23, 'Trendy Senior Quartz Watch ', 'Watches', 2150.00, 30, '68c457c0703e1.jpeg', ' Stay sharp with the latest trend in senior men\'s quartz watches. Designed for business style, it features a refined look, reliable movement, and timeless elegance for everyday sophistication. Ask ChatGPT\r\n'),
+(23, 'Trendy Senior Quartz Watch ', 'Watches', 2150.00, 30, '68c457c0703e1.jpeg', 'Stay sharp with the latest trend in senior men\'s quartz watches. Designed for business style, it features a refined look, reliable movement, and timeless elegance for everyday sophistication.'),
 (24, 'Elegant Three-Eye Quartz Watch ', 'Watches', 3100.00, 30, '68c457e0051b7.jpeg', 'This men\'s business casual watch features an elegant design with a three-eye calendar display. Though non-mechanical, it offers luxury appeal, combining classic style and modern quartz precision for everyday wear. \r\n'),
 (25, 'ZoomSnap 5K', 'Digital Cameras', 179.00, 100, '68c458443baaa.jpeg', 'Capture stunning detail with the ZoomSnap 5K Digital Camera. Featuring 5K UHD, 18X zoom, and a 180° rotating 3.0\" screen — perfect for students, vlogging, and birthday gifting.\r\n'),
 (26, 'SnapMini 1080P', 'Digital Cameras', 101.00, 50, '68c45877d667d.jpeg', 'SnapMini 1080P is the perfect beginner-friendly digital camera for kids! With autofocus, 8x zoom, and compact design, it’s great for learning photography, fun videos, and creative play.\r\n'),
@@ -173,8 +172,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `name`, `email`, `password`, `role_id`, `created_at`) VALUES
-(1, 'Nimasha', 'nimashagayathri24@gmail.com', '$2y$10$eKjZGblytDXBhqT31Tw.5.G5n0ujvn.J2MwXKyvD7XPXjrb5etgjC', 2, '2025-09-12 17:03:21'),
-(2, 'Nimasha', 'nimashagayathri24@shopnest.com', '$2y$10$0MtpTbiEDaBhxsZLEHQP8.qYZWO/scTSfSPJQIoZeA6u2p26k1hIS', 1, '2025-09-12 17:04:04');
+(1, 'User', 'User@gmail.com', '$2y$10$3x/0dz6Ad54PFcve9735LOcUmLV.furLMa6BToudwuBiyTsvQlJOu', 2, '2025-09-12 19:10:25'),
+(2, 'Admin', 'admin@shopnest.com', '$2y$10$dqX2rZrH540mQFtXfUSsBO5Ouyc9WCWMNTK10pvgVNW6bVAqB0JZ.', 1, '2025-09-12 19:11:22');
 
 --
 -- Indexes for dumped tables
@@ -221,7 +220,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
