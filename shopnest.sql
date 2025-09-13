@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 12, 2025 at 09:16 PM
+-- Generation Time: Sep 13, 2025 at 09:59 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -17,11 +17,25 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
-
+--
 -- Create Database
 -- --------------------------------------------------------
 CREATE DATABASE IF NOT EXISTS `shopnest` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `shopnest`;
+
+-- --------------------------------------------------------
+
+
+--
+-- Table structure for table `contacts`
+--
+
+CREATE TABLE `contacts` (
+  `name` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `message` varchar(200) NOT NULL,
+  `submission_date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
